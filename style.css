@@ -8,6 +8,7 @@
   height: 500px;
   border: 1px solid black;
   margin: auto;
+  overflow: hidden;
 }
 
 #character {
@@ -17,4 +18,23 @@
   border-radius: 50%;
   position: relative;
   left: 50px;
+  z-index: 1000;
+}
+
+.block {
+  width: 400px;
+  height: 15px;
+  background-color: black;
+  position: relative;
+  top: 100px;
+  margin-top: -15px;
+}
+
+.hole {
+  width: 50px;
+  height: 15px;
+  background-color: white;
+  position: relative;
+  top: 100px;
+  margin-top: -15px;
 }
