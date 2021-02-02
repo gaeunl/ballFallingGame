@@ -18,6 +18,8 @@ var interval;
 var both = 0;
 var counter = 0;
 var blockArray = [];
+var score = 0;
+
 
 document.addEventListener('keydown', event => {
     if(both !== 0){
@@ -38,9 +40,12 @@ document.addEventListener('keyup', event => {
 })
 
 // blocks
-setInterval(function(){
+var blocks = setInterval(function(){
     var blockLast = document.getElementById("block"+(counter - 1));
-    
+    var characterTop = parseInt(window.getComputedStyle(character).getPropertyValue('top'));
+    var characterLeft = parseInt(window.getComputedStyle(character).getPropertyValue('left'));
+    var drop = 0;   
+
     if(counter > 0){
         var blockLastTop = parseInt(window.getComputedStyle(blockLast).getPropertyValue('top'));
     }
@@ -67,13 +72,32 @@ setInterval(function(){
         let iblock = document.getElementById("block"+ current);
         let ihole = document.getElementById("hole"+ current);
         let iblockTop = parseFloat(window.getComputedStyle(iblock).getPropertyValue('top'));
+        let iholeLeft = parseFloat(window.getComputedStyle(ihole).getPropertyValue('left'));
+
         iblock.style.top = iblockTop - 0.5 + "px"; // change speed
         ihole.style.top = iblockTop - 0.5 + "px"; // change speed
-        if(iblockTop < -20){
+        if(iblockTop < -15){
             blockArray.shift();
             iblock.remove();
             ihole.remove();
+            score ++;
         }
+        if(iblockTop - 20 < characterTop && iblockTop > characterTop){
+            drop ++;
+            if(iholeLeft <= characterLeft && iholeLeft + 30 >= characterLeft){
+                drop = 0;
+            }
+        }
+    }
+    if(drop == 0 && characterTop < 480){
+        character.style.top = characterTop + 2 + "px";
+    }else{
+        character.style.top = characterTop - 2 + "px";
+    }
+    if(characterTop < 0){
+        alert("Game Over. Score: " + score);
+        clearInterval(blocks);
+        location.reload();
     }
     // todo: combine block and hole together an treat them as one object
 },1);

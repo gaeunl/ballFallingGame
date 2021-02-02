@@ -19,6 +19,7 @@
   position: relative;
   left: 50px;
   z-index: 1000;
+  top: 40px;
 }
 
 .block {
@@ -26,7 +27,7 @@
   height: 15px;
   background-color: black;
   position: relative;
-  top: 100px;
+  top: 200px;
   margin-top: -15px;
 }
 
